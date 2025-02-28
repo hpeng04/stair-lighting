@@ -26,11 +26,12 @@ SystemPhase systemPhase = IDLE;
 const int sensorTopPin = 34;     // sensor signals (assumed to be 3.3V safe)
 const int sensorBottomPin = 35;
 // 15 relay channels; we assume index 0 is the “top” step, index 14 is the “bottom”
-const int relayPins[15] = {4, 5, 13, 14, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 33};
+const int relayPins[15] = {13, 4, 14, 27, 26, 25, 33, 32, 23, 22, 1, 3, 21, 19, 18};
+// const int relayPins[15] = {4, 5, 13, 14, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 33};
 
 // ----- Timing Settings (in ms) -----
-const unsigned long stepDelay = 500;       // delay between each relay action
-const unsigned long lightsOnDuration = 2000; // duration to keep lights on (this will be extended with each sensor trigger)
+const unsigned long stepDelay = 300;       // delay between each relay action
+const unsigned long lightsOnDuration = 1000; // duration to keep lights on (this will be extended with each sensor trigger)
 
 // ----- Sensor Debounce Settings -----
 const unsigned long debounceDelay = 50;  // Debounce delay in milliseconds
@@ -165,6 +166,8 @@ void loop() {
 
   // SENSOR DETECTION
   if (systemPhase == IDLE) {
+    topLastStepTime = 0;
+    bottomLastStepTime = 0;
     if (topActive || bottomActive) {
       systemPhase = TURNING_ON;
       if (topActive) {
@@ -176,6 +179,7 @@ void loop() {
     }
   }
   if (systemPhase == WAIT_ON) {
+    offLastStepTime = 0;
     topActive = false;
     bottomActive = false;
     if (stableTopSignal == HIGH || stableBottomSignal == HIGH) {
