@@ -25,8 +25,9 @@ SystemPhase systemPhase = IDLE;
 // ----- Hardware Pin Definitions -----
 const int sensorTopPin = 34;     // sensor signals (assumed to be 3.3V safe)
 const int sensorBottomPin = 35;
-// 15 relay channels; we assume index 0 is the “top” step, index 14 is the “bottom”
-const int relayPins[15] = {13, 4, 14, 27, 26, 25, 33, 32, 23, 22, 1, 3, 21, 19, 18};
+// 15 relay channels; we assume index 0 is the "bottom" step, index 14 is the "top"
+const int relayPins[15] = {13, 14, 27, 26, 25, 33, 32, 23, 22, 1, 3, 21, 19, 18, 4};
+// const int relayPins[15] = {13, 4, 14, 27, 26, 25, 33, 32, 23, 22, 1, 3, 21, 19, 18};
 // const int relayPins[15] = {4, 5, 13, 14, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 33};
 
 // ----- Timing Settings (in ms) -----
